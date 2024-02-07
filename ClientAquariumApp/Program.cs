@@ -1,7 +1,4 @@
-﻿using ClientAquariumApp.ViewModels;
-using LiveChartsCore;
-using LiveChartsCore.SkiaSharpView;
-using SkiaSharp;
+﻿using System.Configuration;
 
 namespace ClientAquariumApp
 {
@@ -13,7 +10,7 @@ namespace ClientAquariumApp
         [STAThread]
         static void Main()
         {
-           
+
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
