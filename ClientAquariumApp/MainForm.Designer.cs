@@ -116,9 +116,9 @@
             // 
             // addMtToolStripMenuItem
             // 
-            //addMtToolStripMenuItem.Name = "addMtToolStripMenuItem";
-            //addMtToolStripMenuItem.Size = new Size(180, 22);
-            //addMtToolStripMenuItem.Text = "Add";
+            addMtToolStripMenuItem.Name = "addMtToolStripMenuItem";
+            addMtToolStripMenuItem.Size = new Size(180, 22);
+            addMtToolStripMenuItem.Text = "Add";
             ////addMtToolStripMenuItem.Click += addMtToolStripMenuItem_Click;
             // 
             // aboutToolStripMenuItem
