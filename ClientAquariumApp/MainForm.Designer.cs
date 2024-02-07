@@ -38,7 +38,7 @@
             addAquaToolStripMenuItem = new ToolStripMenuItem();
             maintenanceToolStripMenuItem = new ToolStripMenuItem();
             listMtToolStripMenuItem = new ToolStripMenuItem();
-            addMtToolStripMenuItem = new ToolStripMenuItem();
+            addMaintenanceToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem = new ToolStripMenuItem();
             mainMenuStrip.SuspendLayout();
             SuspendLayout();
@@ -103,7 +103,7 @@
             // 
             // maintenanceToolStripMenuItem
             // 
-            maintenanceToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { listMtToolStripMenuItem, addMtToolStripMenuItem });
+            maintenanceToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { listMtToolStripMenuItem, addMaintenanceToolStripMenuItem });
             maintenanceToolStripMenuItem.Name = "maintenanceToolStripMenuItem";
             maintenanceToolStripMenuItem.Size = new Size(180, 22);
             maintenanceToolStripMenuItem.Text = "Maintenance";
@@ -114,12 +114,12 @@
             listMtToolStripMenuItem.Size = new Size(180, 22);
             listMtToolStripMenuItem.Text = "List";
             // 
-            // addMtToolStripMenuItem
+            // addMaintenanceToolStripMenuItem
             // 
-            addMtToolStripMenuItem.Name = "addMtToolStripMenuItem";
-            addMtToolStripMenuItem.Size = new Size(180, 22);
-            addMtToolStripMenuItem.Text = "Add";
-            ////addMtToolStripMenuItem.Click += addMtToolStripMenuItem_Click;
+            addMaintenanceToolStripMenuItem.Name = "addMaintenanceToolStripMenuItem";
+            addMaintenanceToolStripMenuItem.Size = new Size(180, 22);
+            addMaintenanceToolStripMenuItem.Text = "Add";
+            addMaintenanceToolStripMenuItem.Click += addMaintenanceToolStripMenuItem_Click;
             // 
             // aboutToolStripMenuItem
             // 
@@ -163,7 +163,7 @@
         private ToolStripMenuItem listAquaToolStripMenuItem;
         private ToolStripMenuItem addAquaToolStripMenuItem;
         private ToolStripMenuItem listMtToolStripMenuItem;
-        private ToolStripMenuItem addMtToolStripMenuItem;
+        private ToolStripMenuItem addMaintenanceToolStripMenuItem;
         private ToolStripMenuItem listJlToolStripMenuItem;
         private ToolStripMenuItem addJlToolStripMenuItem;
     }

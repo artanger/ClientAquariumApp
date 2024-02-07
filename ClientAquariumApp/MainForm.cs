@@ -11,7 +11,7 @@ namespace ClientAquariumApp
             InitializeComponent();
         }
 
-       
+
         private bool IsFormAlreadyOpened(string formName)
         {
             FormCollection fc = Application.OpenForms;
@@ -76,18 +76,19 @@ namespace ClientAquariumApp
             }
         }
 
-        //private void addMtToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    string formNameToOpen = "AddTypeForm";
 
-        //    if (!IsFormAlreadyOpened(formNameToOpen))
-        //    {
-        //        AddTypeForm addTypeForm = new AddTypeForm();
-        //        addTypeForm.Name = formNameToOpen;
-        //        addTypeForm.MdiParent = this;
-        //        addTypeForm.Show();
-        //    }
-        //}
+        private void addMaintenanceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string formNameToOpen = "AddMaintenanceTypeForm";
+
+            if (!IsFormAlreadyOpened(formNameToOpen))
+            {
+                AddMaintenanceTypeForm addTypeForm = new AddMaintenanceTypeForm();
+                addTypeForm.Name = formNameToOpen;
+                addTypeForm.MdiParent = this;
+                addTypeForm.Show();
+            }
+        }
     }
 }
 
