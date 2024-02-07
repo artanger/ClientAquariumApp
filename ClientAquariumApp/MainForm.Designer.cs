@@ -48,10 +48,9 @@
             mainMenuStrip.Items.AddRange(new ToolStripItem[] { journalToolStripMenuItem, catalogToolStripMenuItem, aboutToolStripMenuItem });
             mainMenuStrip.Location = new Point(0, 0);
             mainMenuStrip.Name = "mainMenuStrip";
-            mainMenuStrip.Size = new Size(704, 24);
+            mainMenuStrip.Size = new Size(909, 24);
             mainMenuStrip.TabIndex = 2;
             mainMenuStrip.Text = "menuStrip1";
-            mainMenuStrip.ItemClicked += menuStrip1_ItemClicked;
             // 
             // journalToolStripMenuItem
             // 
@@ -63,14 +62,16 @@
             // listJlToolStripMenuItem
             // 
             listJlToolStripMenuItem.Name = "listJlToolStripMenuItem";
-            listJlToolStripMenuItem.Size = new Size(180, 22);
-            listJlToolStripMenuItem.Text = "List";
+            listJlToolStripMenuItem.Size = new Size(138, 22);
+            listJlToolStripMenuItem.Text = "Journal lists ";
+            listJlToolStripMenuItem.Click += listJlToolStripMenuItem_Click;
             // 
             // addJlToolStripMenuItem
             // 
             addJlToolStripMenuItem.Name = "addJlToolStripMenuItem";
-            addJlToolStripMenuItem.Size = new Size(180, 22);
+            addJlToolStripMenuItem.Size = new Size(138, 22);
             addJlToolStripMenuItem.Text = "Add";
+            addJlToolStripMenuItem.Click += addJlToolStripMenuItem_Click;
             // 
             // catalogToolStripMenuItem
             // 
@@ -78,13 +79,12 @@
             catalogToolStripMenuItem.Name = "catalogToolStripMenuItem";
             catalogToolStripMenuItem.Size = new Size(60, 20);
             catalogToolStripMenuItem.Text = "Catalog";
-            catalogToolStripMenuItem.Click += aquariumToolStripMenuItem_Click;
             // 
             // aquariumToolStripMenuItem
             // 
             aquariumToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { listAquaToolStripMenuItem, addAquaToolStripMenuItem });
             aquariumToolStripMenuItem.Name = "aquariumToolStripMenuItem";
-            aquariumToolStripMenuItem.Size = new Size(143, 22);
+            aquariumToolStripMenuItem.Size = new Size(180, 22);
             aquariumToolStripMenuItem.Text = "Aquarium";
             // 
             // listAquaToolStripMenuItem
@@ -92,31 +92,34 @@
             listAquaToolStripMenuItem.Name = "listAquaToolStripMenuItem";
             listAquaToolStripMenuItem.Size = new Size(96, 22);
             listAquaToolStripMenuItem.Text = "List";
+            listAquaToolStripMenuItem.Click += listAquaToolStripMenuItem_Click;
             // 
             // addAquaToolStripMenuItem
             // 
             addAquaToolStripMenuItem.Name = "addAquaToolStripMenuItem";
             addAquaToolStripMenuItem.Size = new Size(96, 22);
             addAquaToolStripMenuItem.Text = "Add";
+            addAquaToolStripMenuItem.Click += addAquaToolStripMenuItem_Click;
             // 
             // maintenanceToolStripMenuItem
             // 
             maintenanceToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { listMtToolStripMenuItem, addMtToolStripMenuItem });
             maintenanceToolStripMenuItem.Name = "maintenanceToolStripMenuItem";
-            maintenanceToolStripMenuItem.Size = new Size(143, 22);
+            maintenanceToolStripMenuItem.Size = new Size(180, 22);
             maintenanceToolStripMenuItem.Text = "Maintenance";
             // 
             // listMtToolStripMenuItem
             // 
             listMtToolStripMenuItem.Name = "listMtToolStripMenuItem";
-            listMtToolStripMenuItem.Size = new Size(96, 22);
+            listMtToolStripMenuItem.Size = new Size(180, 22);
             listMtToolStripMenuItem.Text = "List";
             // 
             // addMtToolStripMenuItem
             // 
-            addMtToolStripMenuItem.Name = "addMtToolStripMenuItem";
-            addMtToolStripMenuItem.Size = new Size(96, 22);
-            addMtToolStripMenuItem.Text = "Add";
+            //addMtToolStripMenuItem.Name = "addMtToolStripMenuItem";
+            //addMtToolStripMenuItem.Size = new Size(180, 22);
+            //addMtToolStripMenuItem.Text = "Add";
+            ////addMtToolStripMenuItem.Click += addMtToolStripMenuItem_Click;
             // 
             // aboutToolStripMenuItem
             // 
@@ -129,7 +132,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(704, 676);
+            ClientSize = new Size(909, 666);
             Controls.Add(mainMenuStrip);
             IsMdiContainer = true;
             MainMenuStrip = mainMenuStrip;
@@ -138,7 +141,6 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Main";
             WindowState = FormWindowState.Maximized;
-            Load += MainForm_Load;
             mainMenuStrip.ResumeLayout(false);
             mainMenuStrip.PerformLayout();
             ResumeLayout(false);
