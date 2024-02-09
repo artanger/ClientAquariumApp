@@ -89,6 +89,19 @@ namespace ClientAquariumApp
                 addTypeForm.Show();
             }
         }
+
+        private void listMtToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string formNameToOpen = "MaintenanceListForm";
+
+            if (!IsFormAlreadyOpened(formNameToOpen))
+            {
+                MaintenanceListForm maintenanceListForm = new MaintenanceListForm();
+                maintenanceListForm.Name = formNameToOpen;
+                maintenanceListForm.MdiParent = this;
+                maintenanceListForm.Show();
+            }
+        }
     }
 }
 

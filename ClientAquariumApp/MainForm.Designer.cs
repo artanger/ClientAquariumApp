@@ -113,6 +113,7 @@
             listMtToolStripMenuItem.Name = "listMtToolStripMenuItem";
             listMtToolStripMenuItem.Size = new Size(180, 22);
             listMtToolStripMenuItem.Text = "List";
+            listMtToolStripMenuItem.Click += listMtToolStripMenuItem_Click;
             // 
             // addMaintenanceToolStripMenuItem
             // 

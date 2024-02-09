@@ -20,6 +20,7 @@ namespace ClientAquariumApp
         public AddMaintenanceTypeForm()
         {
             InitializeComponent();
+
         }
 
         private async void addTypeButton_Click(object sender, EventArgs e)
