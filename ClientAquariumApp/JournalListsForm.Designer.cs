@@ -59,6 +59,7 @@
             dataGridViewJournals.Name = "dataGridViewJournals";
             tableLayoutPanel1.SetRowSpan(dataGridViewJournals, 2);
             dataGridViewJournals.RowTemplate.Height = 25;
+            dataGridViewJournals.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewJournals.Size = new Size(574, 444);
             dataGridViewJournals.TabIndex = 0;
             // 

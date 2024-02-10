@@ -18,11 +18,11 @@ namespace ClientAquariumApp
         private const string getMaintenanceType = "http://localhost:5238/api/MaintenanceType/GetAll";
         public MaintenanceListForm()
         {
-            InitializeComponent();            
+            InitializeComponent();
         }
 
         private async void MaintenanceListForm_Load(object sender, EventArgs e)
-        {            
+        {
             await LoadMaintenanceTypes();
             dataGridViewMaintenanceTypes.Columns[0].Visible = false;
         }
@@ -51,11 +51,11 @@ namespace ClientAquariumApp
         }
 
         private void dataGridViewMaintenanceTypes_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {          
+        {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
-            {                
-                IdNameModel selectedMaintenanceType = (IdNameModel)dataGridViewMaintenanceTypes.Rows[e.RowIndex].DataBoundItem;                
-                EditMaintenanceTypeForm editForm = new EditMaintenanceTypeForm(selectedMaintenanceType);               
+            {
+                IdNameModel selectedMaintenanceType = (IdNameModel)dataGridViewMaintenanceTypes.Rows[e.RowIndex].DataBoundItem;
+                EditMaintenanceTypeForm editForm = new EditMaintenanceTypeForm(selectedMaintenanceType);
                 editForm.ShowDialog();
             }
         }

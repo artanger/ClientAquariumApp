@@ -60,6 +60,7 @@
             dataGridViewMaintenanceTypes.Location = new Point(3, 63);
             dataGridViewMaintenanceTypes.Name = "dataGridViewMaintenanceTypes";
             dataGridViewMaintenanceTypes.RowTemplate.Height = 25;
+            dataGridViewMaintenanceTypes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewMaintenanceTypes.Size = new Size(706, 352);
             dataGridViewMaintenanceTypes.TabIndex = 0;
             dataGridViewMaintenanceTypes.CellContentClick += dataGridViewMaintenanceTypes_CellContentClick;
