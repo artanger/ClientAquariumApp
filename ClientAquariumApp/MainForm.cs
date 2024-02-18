@@ -56,20 +56,20 @@ namespace ClientAquariumApp
             }
         }
 
-        private void editJlToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (!IsFormAlreadyOpened("EditJournalForm"))
-            {
-                EditJournalForm editJournalForm = new EditJournalForm();
-                editJournalForm.MdiParent = this;
-                editJournalForm.Show();
-            }
-        }
+        //private void editJlToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    if (!IsFormAlreadyOpened("EditJournalForm"))
+        //    {
+        //        EditJournalForm editJournalForm = new EditJournalForm();
+        //        editJournalForm.MdiParent = this;
+        //        editJournalForm.Show();
+        //    }
+        //}
 
         private void listJlToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!IsFormAlreadyOpened("JournalListsForm"))
-            {
+            {   
                 JournalListsForm journalListsForm = new JournalListsForm();
                 journalListsForm.MdiParent = this;
                 journalListsForm.Show();

@@ -15,7 +15,9 @@ namespace ClientAquariumApp
     public partial class NewJournalForm : Form
     {
         const string urlGetAllShort = "http://localhost:5238/api/Aquarium/GetAllShort";
+
         const string urlMtGetAllShort = "http://localhost:5238/api/MaintenanceType/GetAllShort";
+
         const string urlAddJournal = "http://localhost:5238/api/Journal/AddJounal";
 
         List<IdNameModel> availableMaintenanceTypes = new List<IdNameModel>();

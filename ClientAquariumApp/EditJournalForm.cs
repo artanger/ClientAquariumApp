@@ -1,6 +1,8 @@
 ﻿using ClientAquariumApp.ViewModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -14,25 +16,124 @@ namespace ClientAquariumApp
 {
     public partial class EditJournalForm : Form
     {
-        const string urlGetAllShort = "http://localhost:5238/api/Aquarium/GetAllShort";
-        public EditJournalForm()
+        private const string urlGetAllShort = "http://localhost:5238/api/Aquarium/GetAllShort";
+
+        private const string urlMtGetAllShort = "http://localhost:5238/api/MaintenanceType/GetAllShort";
+
+        private const string urlEditJournal = "http://localhost:5238/api/Journal/Edit";
+
+        private const string urlGetJournal = "http://localhost:5238/api/Journal/Getbyid";
+
+
+        private List<IdNameModel> _availableMaintenanceTypes;
+
+        private JournalPostModel _model;
+
+        private int _journalId;
+
+        public EditJournalForm(int journalId)
         {
             InitializeComponent();
+
+            _journalId = journalId;
+
+            LoadAvailableMaintenanceTypesAsync();
         }
-        private void EditJournalForm_Load(object sender, EventArgs e)
+
+        public EditJournalForm(JournalPostModel model)
         {
-            FillComboBoxWithFishTanks();
+            InitializeComponent();
+            _model = model;
+
+            FillControlsByModel();
+
+            _availableMaintenanceTypes = new List<IdNameModel>();
+            LoadAvailableMaintenanceTypesAsync();
+        }
+
+        public EditJournalForm()
+        {
+        }
+
+        private async void EditJournalForm_Load(object sender, EventArgs e)
+        {
+            _model = await GetJournalPostModelAsync(urlGetJournal, _journalId);
+
+            FillControlsByModel();
+            await FillComboBoxWithFishTanks();
+        }
+
+        private void FillControlsByModel()
+        {
+            if (_model != null)
+            {
+                txtName.Text = _model.Name;
+                txtDescription.Text = _model.Description;
+                dateTimePicker1.Text = _model.DateTime?.ToString() ?? "";
+                listBoxSelected.Items.Clear();
+
+                if (_model.MaintenanceTypeIntIDs != null && _model.MaintenanceTypeIntIDs.Any())
+                {
+                    var maintenanceTypeInts = _model.MaintenanceTypeIntIDs.Split(',');
+
+                    var selectedMaintenanceTypes = new List<IdNameModel>();
+
+                    foreach (var maintenanceTypeInt in maintenanceTypeInts)
+                    {
+                        var selectedMaintenanceType = _availableMaintenanceTypes.SingleOrDefault(t => t.ID == int.Parse(maintenanceTypeInt));
+                        if (selectedMaintenanceType != null)
+                        {
+                            selectedMaintenanceTypes.Add(selectedMaintenanceType);
+                        }
+                    }
+
+                    UpdateListBoxDataSource(listBoxSelected, selectedMaintenanceTypes);
+                }
+            }
+        }
+
+        private void UpdateListBoxDataSource(ListBox listBox, List<IdNameModel> list)
+        {
+            listBox.DataSource = null;
+            listBox.DataSource = new BindingList<IdNameModel>(list);
+            listBox.DisplayMember = "Name";
+            listBox.ValueMember = "ID";
+        }
+
+        private async Task LoadAvailableMaintenanceTypesAsync()
+        {
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    var response = await httpClient.GetAsync(urlMtGetAllShort);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var jsonString = await response.Content.ReadAsStringAsync();
+                        if (!string.IsNullOrEmpty(jsonString))
+                        {
+                            _availableMaintenanceTypes = JsonConvert.DeserializeObject<List<IdNameModel>>(jsonString);
+                        }
+
+                        listBoxAvailable.Items.Clear();
+                        foreach (var maintenanceType in _availableMaintenanceTypes)
+                        {
+                            listBoxAvailable.Items.Add(maintenanceType.Name);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ошибка при загрузке данных о доступных типах обслуживания.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке данных: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private async Task FillComboBoxWithFishTanks()
-        {
-            var fishTanks = await GetFishTanks();
-            comboBoxSelectAquarium.DataSource = fishTanks;
-            comboBoxSelectAquarium.DisplayMember = "Name";
-            comboBoxSelectAquarium.ValueMember = "ID";
-        }
-
-        private async Task<List<FishTankBaseModel>> GetFishTanks()
         {
             using (var client = new HttpClient())
             {
@@ -42,28 +143,54 @@ namespace ClientAquariumApp
 
                     if (response.IsSuccessStatusCode)
                     {
-                        // Десериализация JSON ответа в список объектов FishTankBaseModel
                         var fishTanks = await response.Content.ReadFromJsonAsync<List<FishTankBaseModel>>();
-                        return fishTanks ?? new List<FishTankBaseModel>();
+                        comboBoxSelectAquarium.DataSource = fishTanks;
+                        comboBoxSelectAquarium.DisplayMember = "Name";
+                        comboBoxSelectAquarium.ValueMember = "ID";
                     }
                     else
                     {
-                        // Обработка ошибок при запросе
-                        Console.WriteLine($"Ошибка получения данных: {response.ReasonPhrase}");
-                        return new List<FishTankBaseModel>();
+                        MessageBox.Show($"Ошибка получения данных: {response.ReasonPhrase}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (Exception ex)
                 {
-                    // Обработка исключений, связанных с запросом
-                    Console.WriteLine($"Исключение при запросе: {ex.Message}");
-                    return new List<FishTankBaseModel>();
+                    MessageBox.Show($"Исключение при запросе: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
+        private async Task<JournalPostModel?> GetJournalPostModelAsync(string apiBaseUrl, int id)
+        {
+            using (var client = new HttpClient())
+            {
+                try
+                {
+                    var response = await client.GetAsync($"{apiBaseUrl}?id={id}");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        var data = JsonConvert.DeserializeObject<JournalPostModel>(json);
 
+                        return data;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ошибка при выполнении запроса.");
 
+                        return null;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка: " + ex.Message);
+
+                    return null;
+                }
+            }
+        }
 
     }
+
+
 }
