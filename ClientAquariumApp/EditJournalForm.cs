@@ -35,9 +35,6 @@ namespace ClientAquariumApp
         private JournalPostModel _model;
         private int _journalId;
 
-        //private readonly IConfiguration Configuration;
-        private readonly IAppSettings _appSettings;
-
         public EditJournalForm(JournalPostModel model)
         {
             InitializeComponent();
@@ -52,9 +49,6 @@ namespace ClientAquariumApp
             InitializeComponent();
 
             _journalId = journalId;
-
-            //_appSettings = DIContainer.AppSettings.ApiUrl;
-            //var ttt = DIContainer.ServiceProvider.GetRequiredService<IConfiguration>();
 
             LoadAvailableMaintenanceTypesAsync();
         }
@@ -139,26 +133,45 @@ namespace ClientAquariumApp
         {
             try
             {
-                using (var httpClient = new HttpClient())
+                //using (var httpClient = new HttpClient())
+                //{
+                //    var response = await httpClient.GetAsync(urlMtGetAllShort);
+                //    if (response.IsSuccessStatusCode)
+                //    {
+                //        var jsonString = await response.Content.ReadAsStringAsync();
+                //        if (!string.IsNullOrEmpty(jsonString))
+                //        {
+                //            _availableMaintenanceTypes = JsonConvert.DeserializeObject<List<IdNameModel>>(jsonString);
+                //        }
+
+                //        listBoxAvailable.Items.Clear();
+
+                //        if (_availableMaintenanceTypes != null && _availableMaintenanceTypes.Any())
+                //        {
+                //            foreach (var maintenanceType in _availableMaintenanceTypes)
+                //            {
+                //                listBoxAvailable.Items.Add(maintenanceType);
+                //            }
+                //        }
+                //    }
+                //    else
+                //    {
+                //        MessageBox.Show("Ошибка при загрузке данных о доступных типах обслуживания.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //    }
+                //}
+                using (var client = new HttpClient())
                 {
-                    var response = await httpClient.GetAsync(urlMtGetAllShort);
+                    var response = await client.GetAsync(urlMtGetAllShort);
                     if (response.IsSuccessStatusCode)
                     {
-                        var jsonString = await response.Content.ReadAsStringAsync();
-                        if (!string.IsNullOrEmpty(jsonString))
-                        {
-                            _availableMaintenanceTypes = JsonConvert.DeserializeObject<List<IdNameModel>>(jsonString);
-                        }
-
-                        listBoxAvailable.Items.Clear();
-                        foreach (var maintenanceType in _availableMaintenanceTypes)
-                        {
-                            listBoxAvailable.Items.Add(maintenanceType.Name);
-                        }
+                        _availableMaintenanceTypes = await response.Content.ReadFromJsonAsync<List<IdNameModel>>();
+                        listBoxAvailable.DataSource = new BindingList<IdNameModel>(_availableMaintenanceTypes);
+                        listBoxAvailable.DisplayMember = "Name";
+                        listBoxAvailable.ValueMember = "ID";
                     }
                     else
                     {
-                        MessageBox.Show("Ошибка при загрузке данных о доступных типах обслуживания.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Console.WriteLine($"Ошибка получения данных: {response.ReasonPhrase}");
                     }
                 }
             }
