@@ -8,17 +8,20 @@ namespace ClientAquariumApp.ViewModels
 {
     public class JournalPostModel : IdNameModel
     {
-        public int? FishTankID { get; set; }
+      
 
-        //public string Name { get; set; }
-
-        //public string Description { get; set; }
+        public int? FishTankID { get; set; }       
 
         public DateTime? DateTime { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+        public DateTime UpdatedDate { get; set; }
 
         public List<int> MaintenanceTypes { get; set; } = new List<int>();
 
         public string MaintenanceTypeIntIDs { get; set; } = string.Empty;
 
-    }
+    }   
+
 }

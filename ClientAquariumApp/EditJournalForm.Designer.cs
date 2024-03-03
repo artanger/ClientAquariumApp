@@ -41,7 +41,7 @@
             listBoxSelected = new ListBox();
             label4 = new Label();
             label5 = new Label();
-            button1 = new Button();
+            btnSaveJournal = new Button();
             btnAdd = new Button();
             btnRemove = new Button();
             tableLayoutPanel1.SuspendLayout();
@@ -65,7 +65,7 @@
             tableLayoutPanel1.Controls.Add(listBoxSelected, 2, 11);
             tableLayoutPanel1.Controls.Add(label4, 0, 10);
             tableLayoutPanel1.Controls.Add(label5, 2, 10);
-            tableLayoutPanel1.Controls.Add(button1, 2, 17);
+            tableLayoutPanel1.Controls.Add(btnSaveJournal, 2, 17);
             tableLayoutPanel1.Controls.Add(btnAdd, 1, 12);
             tableLayoutPanel1.Controls.Add(btnRemove, 1, 14);
             tableLayoutPanel1.Dock = DockStyle.Fill;
@@ -211,15 +211,16 @@
             label5.TabIndex = 11;
             label5.Text = "Selected";
             // 
-            // button1
+            // btnSaveJournal
             // 
-            button1.Dock = DockStyle.Fill;
-            button1.Location = new Point(331, 598);
-            button1.Name = "button1";
-            button1.Size = new Size(208, 76);
-            button1.TabIndex = 12;
-            button1.Text = "Save";
-            button1.UseVisualStyleBackColor = true;
+            btnSaveJournal.Dock = DockStyle.Fill;
+            btnSaveJournal.Location = new Point(331, 598);
+            btnSaveJournal.Name = "btnSaveJournal";
+            btnSaveJournal.Size = new Size(208, 76);
+            btnSaveJournal.TabIndex = 12;
+            btnSaveJournal.Text = "Save";
+            btnSaveJournal.UseVisualStyleBackColor = true;
+            btnSaveJournal.Click += btnSaveJournal_Click;
             // 
             // btnAdd
             // 
@@ -230,6 +231,7 @@
             btnAdd.TabIndex = 13;
             btnAdd.Text = "Add";
             btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // btnRemove
             // 
@@ -240,6 +242,7 @@
             btnRemove.TabIndex = 14;
             btnRemove.Text = "Remove";
             btnRemove.UseVisualStyleBackColor = true;
+            btnRemove.Click += btnRemove_Click;
             // 
             // EditJournalForm
             // 
@@ -271,7 +274,7 @@
         private ListBox listBoxSelected;
         private Label label4;
         private Label label5;
-        private Button button1;
+        private Button btnSaveJournal;
         private Button btnAdd;
         private Button btnRemove;
     }
