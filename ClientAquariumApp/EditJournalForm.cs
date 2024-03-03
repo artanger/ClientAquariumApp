@@ -12,15 +12,22 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
+using OpenTK;
+using Microsoft.Extensions.Configuration;
+using ClientAquariumApp.Models;
+using ClientAquariumApp.Abstractions.Models;
+using ClientAquariumApp.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ClientAquariumApp
 {
     public partial class EditJournalForm : Form
     {
-        private const string urlGetAllShort = "http://localhost:5238/api/Aquarium/GetAllShort";
-        private const string urlMtGetAllShort = "http://localhost:5238/api/MaintenanceType/GetAllShort";
-        private const string urlGetJournal = "http://localhost:5238/api/Journal/Getbyid";
-        private const string urlEditJournal = "http://localhost:5238/api/Journal/Edit";
+        private static string urlGetAllShort = $"{DIContainer.AppSettings?.ApiUrl}/Aquarium/GetAllShort";
+        private static string urlMtGetAllShort = $"{DIContainer.AppSettings?.ApiUrl}/MaintenanceType/GetAllShort";
+        private static string urlGetJournal = $"{DIContainer.AppSettings?.ApiUrl}/Journal/Getbyid";
+        private static string urlEditJournal = $"{DIContainer.AppSettings?.ApiUrl}/Journal/Edit";
 
         private List<IdNameModel> _availableMaintenanceTypes = new List<IdNameModel>();
         private List<IdNameModel> _selectedMaintenanceTypes = new List<IdNameModel>();
@@ -28,9 +35,13 @@ namespace ClientAquariumApp
         private JournalPostModel _model;
         private int _journalId;
 
+        //private readonly IConfiguration Configuration;
+        private readonly IAppSettings _appSettings;
+
         public EditJournalForm(JournalPostModel model)
         {
             InitializeComponent();
+
             _model = model;
             FillControlsByModel();
             LoadAvailableMaintenanceTypesAsync();
@@ -41,6 +52,10 @@ namespace ClientAquariumApp
             InitializeComponent();
 
             _journalId = journalId;
+
+            //_appSettings = DIContainer.AppSettings.ApiUrl;
+            //var ttt = DIContainer.ServiceProvider.GetRequiredService<IConfiguration>();
+
             LoadAvailableMaintenanceTypesAsync();
         }
 
